@@ -53,10 +53,13 @@ for i in range(100):
     driver.switch_to.window(driver.window_handles[1])
     driver.get('https://www.instagram.com/accounts/emailsignup/')
     time.sleep(5)
-    if driver.find_element_by_xpath('/html/body/div[4]/div/div/div/div/div[2]/div[2]/div[1]/div/div'):
+    try:
         driver.find_element_by_xpath(
             '/html/body/div[4]/div/div/button[2]').click()
         time.sleep(5)
+    except NoSuchElementException:
+        pass
+
     WebDriverWait(driver, 20).until(EC.element_to_be_clickable(
         (By.XPATH, "//input[@name='emailOrPhone']"))).send_keys(mailAddress)
     time.sleep(1)
